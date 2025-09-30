@@ -6,8 +6,14 @@ Figmae: https://www.figma.com/design/H3yIKZ2GSZouGosLp3Gyal/CS351-Group-Project?
 GitHub repo link: https://github.com/malakramahi1/CS351-FullStack-Group
 
 ## Q1
+We are available to meet online on Wednesdays 7:00–7:30 pm CT as well as weekends. 
+Our weekly meeting will be on Wednesday's.
 ## Q2
+Prior to 9/22: In our weekly meeting, we will finalize the project track and idea, confirm group roles, and review possible APIs/data sources that fit our backend needs. We will also ensure everyone has the repo cloned and can push from their branches.
 
+During the week of 9/23–9/29: Focus on building the first rough draft of the project by scaffolding the backend (Flask/Django) and frontend (React). Begin connecting endpoints to UI elements and push changes through feature branches.
+
+Before 10/2: Use our meetings to review progress, identify bugs or weak points, and resolve any blockers. If needed, we will attend office hours for guidance. By the final meeting, we will have all Milestone 2 questions answered in the README and the repo prepared for submission.
 ## Q3
 We Will use imessages for communication 
 a                                           
@@ -32,8 +38,13 @@ continues, we will set smaller, clear tasks with deadlines. If they still
 don’t contribute, we will let the TA know so the workload can be fairly balanced
 .                                           
 ## Q5
+Malak – Project Lead & Frontend: scope coordination, routing, core pages.  
+Jovan – Backend & Database (you): API design, Flask/Django views, models, integration tests.  
+Om – UI/UX & Figma: wireframes, component library, responsiveness; assists React.  
+Mandar – API/Data & QA: external API integration, seed data, test plans, GitHub Issues tracking.  
 ## Q6
-                                            
+We will use Flask + React.
+                                       
 ## Track 1: Tackling Generative AI Consequences
 
   Problem 1
