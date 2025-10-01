@@ -61,7 +61,7 @@ Build a web app where students can:
 - Use filters (by course code, date, topic) to discover opportunities.  
 - Send direct messages to group/event organizers.  
 
-This solves the discovery, connection problem in a centralized, accessible way.
+This solves the discovery, connection problem in a centralized, accessible way. The idea will be called College Event Friend Finder.
 
 
   Problem 3
@@ -80,7 +80,7 @@ This improves accessibility and ensures everyone can quickly find support tools.
 ## Track 3: Creative Coding and Cultural Expression
 
 ## Idea Finalization
-For the semester, we are using the College Event Friend Finder project. By connecting users with friends, this program enhances social interaction and connection at local or university events. We selected it because our app can encourage more active participation from students who often miss out on activities because they lack companions. To make sure it fits community expectations, the app will concentrate on UIC students. Features will be created to facilitate engagement, connection, and teamwork, making it simpler and more easier to participate in events.
+For the semester, we are using the College Event Friend Finder project(That we talked about in Track 2). By connecting users with friends, this program enhances social interaction and connection at local or university events. We selected it because our app can encourage more active participation from students who often miss out on activities because they lack companions. To make sure it fits community expectations, the app will concentrate on UIC students. Features will be created to facilitate engagement, connection, and teamwork, making it simpler and more easier to participate in events.
 
 ##EXTRA CREDIT 
 ## Q1
