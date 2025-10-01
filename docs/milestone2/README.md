@@ -81,13 +81,29 @@ This improves accessibility and ensures everyone can quickly find support tools.
 
 ## Idea Finalization
 
+
+
 ##EXTRA CREDIT 
 ## Q1
+We will use SQLite for development since it’s easy, and PostgreSQL in production because it can handle more users.
+
 ## Q2
+The database will store users, groups, events, and messages so we can search, join groups, and send messages.
+
 ## Q3
+We will use Google Maps API to show event and study locations.
+
 ## Q4
+The API has limits, so we will cache common places and let users add info manually if needed.
+
 ## Q5
-## Q5
+Login will be email and password with JWT tokens.
+
 ## Q6
+Passwords will be hashed, secrets kept in environment variables, and everything will run over HTTPS.
+
 ## Q7
+We will deploy on Render or a similar service and keep secrets out of GitHub.
+
 ## Q8
+To stay reliable, we will use health checks, auto-restart, and make redeploys simple when pushing to main.
