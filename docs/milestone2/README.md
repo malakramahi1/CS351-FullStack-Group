@@ -72,7 +72,7 @@ Build a web app where students can:
 - Use filters (by course code, date, topic) to discover opportunities.  
 - Send direct messages to group/event organizers.  
 
-This solves the discovery, connection problem in a centralized, accessible way.
+This solves the discovery, connection problem in a centralized, accessible way. The idea will be called College Event Friend Finder.
 
 
   Problem 3
@@ -89,16 +89,44 @@ This improves accessibility and ensures everyone can quickly find support tools.
 
 
 ## Track 3: Creative Coding and Cultural Expression
+Problem 3
+Many people that visit Chicago, or even some locals might be unaware of all the history behind the city. They might only know from word of mouth, which for visitors can be a problem.
+
+Solution 3
+Make an interactive app that allows people to:
+- Learn the history of Chicago
+- Explore specific themes of Chicago, like  architecture and music
+- Scroll through a timeline of events that took place
+- Add some quizzes to help determine knowledge
+
+The goal of this app is to allow people to interact with the history of Chicago in a easy manner, for people to understand the history.
 
 ## Idea Finalization
+For the semester, we are using the College Event Friend Finder project(That we talked about in Track 2). By connecting users with friends, this program enhances social interaction and connection at local or university events. We selected it because our app can encourage more active participation from students who often miss out on activities because they lack companions. To make sure it fits community expectations, the app will concentrate on UIC students. Features will be created to facilitate engagement, connection, and teamwork, making it simpler and more easier to participate in events.
+
+
 
 ##EXTRA CREDIT 
 ## Q1
+We will use SQLite for development since it’s easy, and PostgreSQL in production because it can handle more users.
+
 ## Q2
+The database will store users, groups, events, and messages so we can search, join groups, and send messages.
+
 ## Q3
+We will use Google Maps API to show event and study locations.
+
 ## Q4
+The API has limits, so we will cache common places and let users add info manually if needed.
+
 ## Q5
-## Q5
+Login will be email and password with JWT tokens.
+
 ## Q6
+Passwords will be hashed, secrets kept in environment variables, and everything will run over HTTPS.
+
 ## Q7
+We will deploy on Render or a similar service and keep secrets out of GitHub.
+
 ## Q8
+To stay reliable, we will use health checks, auto-restart, and make redeploys simple when pushing to main.
