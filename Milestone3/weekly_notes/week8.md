@@ -6,4 +6,4 @@ Malak:
 
 Jovan:
 
-Mandar Patel:
+Mandar Patel: Started working on backend, figuring out ideas on how to implement the log in feature, such as authenticating. I also am figuring out ideas on how to get the display event data to show on the frontend. I conversed with the rest of the group members regarding roles and what to get started on.
