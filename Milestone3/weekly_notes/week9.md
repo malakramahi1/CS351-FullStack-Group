@@ -1,0 +1,3 @@
+Weekly Meeting 1 Notes: 10/20/2025 :
+
+This week, the team continued to make steady progress. Om is continuing his work on the Figma wireframes, refining the application's design. Based on those designs, Malak has now finished the frontend development for the initial three screens. Meanwhile, Mandar and Jovan are in the process of working through the backend, focusing on the user login and authentication systems. We all met today to review each other's work, helped one another out with any questions we had, and set clear expectations for our next meeting.
