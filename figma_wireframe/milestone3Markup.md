@@ -1,6 +1,6 @@
 1. Project Idea and Goals:
 
-Campus Connect is a mobile-first web application designed to help students discover campus events and connect with other students who have similar interests.
+Campus Connect is a web application designed to help students discover campus events and connect with other students who have similar interests.
 
 Primary Goals: Provide a centralized, easy-to-browse platform for all UIC students.Help students "find their crew" by making it easy to see who is interested in an event and facilitating social connections.Increase student engagement in campus life by lowering the barrier to finding activities and friends.
 
