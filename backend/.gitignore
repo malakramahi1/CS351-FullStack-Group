@@ -1,0 +1,19 @@
+# Byte-compiled / cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+
+# Local data files
+users.json
+
+# Logs and temp files
+*.log
+*.tmp
+
+# OS or IDE-specific
+.DS_Store
+.vscode/
