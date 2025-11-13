@@ -1,7 +1,0 @@
-Weekly Meeting 1 Notes: 10/20/2025 :
-
-This week, the team continued to make steady progress. Om is continuing his work on the Figma wireframes, refining the application's design. Based on those designs, Malak has now finished the frontend development for the initial three screens. Meanwhile, Mandar and Jovan are in the process of working through the backend, focusing on the user login and authentication systems. We all met today to review each other's work, helped one another out with any questions we had, and set clear expectations for our next meeting.
-
-Weekly Meeting 2 Notes: 10/22/2025 :
-
-Our group met today, October 22, to review our steady progress on Milestone 3. Om has successfully finished the Figma wireframe portion of the Milestone 3. Based on those completed designs, Malak has now finished the frontend development required for this milestone. Meanwhile, Mandar and Jovan are in the process of finishing the backend, specifically focusing on the user login and authentication systems should be done by tonight. During our meeting, we reviewed each other's work, helped one another with outstanding questions, and set clear expectations for our next steps. We also discussed our preparations for the upcoming peer review scheduled for this Thursday, October 23.

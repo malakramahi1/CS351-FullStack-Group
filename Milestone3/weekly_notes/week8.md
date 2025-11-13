@@ -1,7 +1,0 @@
-Weekly Meeting 1 Notes: 10/16/2025 :
-
-Currently working on the Figma wireframes for the application interface. The layout and navigation flow are in progress, and initial drafts are being created for team feedback in the next meeting. Also showed some initial rough drafts asked for any suggesttions. We also finalized how I will be working on the Figma wireframes and Malak will be working on frontend. Tentatively we have decided that Jovan and Mandar will be working on backend together they have started  figuring out ideas on how to implement the log in feature, such as authenticating also are figuring out ideas on how to get the display event data to show on the frontend. 
-
-Weekly Meeting 2 Notes: 10/17/2025:
-
-During our second weekly meeting, the team provided updates on their progress. Om is continuing to develop the Figma wireframes for the application's interface. Based on the initial design wireframe, Malak has now started working on the frontend development. In parallel, Jovan and Mandar are continuing their work on the backend, specifically focusing on implementing the user login and authentication features while also figuring out the best way to send event data to the frontend. The team also what kind of advanced data structure to use to support the application's core functionalities.
