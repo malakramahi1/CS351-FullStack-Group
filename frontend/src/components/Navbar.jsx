@@ -11,15 +11,29 @@ export default function Navbar() {
         alignItems: "center",
       }}
     >
-      <Link to="/" style={{ fontWeight: 600, textDecoration: "none", color: "#2563eb" }}>
+      <Link
+        to="/"
+        style={{
+          fontWeight: 600,
+          textDecoration: "none",
+          color: "#2563eb",
+          fontSize: "1.25rem",
+        }}
+      >
         Campus Connect
       </Link>
 
       <div style={{ display: "flex", gap: "24px" }}>
-        <Link to="/login" style={{ textDecoration: "none", color: "#2563eb" }}>
+        <Link
+          to="/login"
+          style={{ textDecoration: "none", color: "#2563eb", fontWeight: 500 }}
+        >
           Log In
         </Link>
-        <Link to="/home" style={{ textDecoration: "none", color: "#2563eb" }}>
+        <Link
+          to="/events/all"
+          style={{ textDecoration: "none", color: "#2563eb", fontWeight: 500 }}
+        >
           Explore Events
         </Link>
       </div>
