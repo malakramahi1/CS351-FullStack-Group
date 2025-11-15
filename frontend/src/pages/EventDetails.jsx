@@ -1,52 +1,30 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import './event.css'
-
-const DATA = {
-  1: {
-    title: 'Jazz Ensemble',
-    date: 'Dec 03, 2025',
-    time: '6:00 PM',
-    location: 'UIC Theater',
-    description: 'Join the UIC Jazz Ensemble for an evening of live performances by talented students.',
-  },
-  2: {
-    title: 'English Conversation Hour',
-    date: 'Dec 05, 2025',
-    time: '11:30 AM',
-    location: 'Student Center East',
-    description: 'Practice English with speakers of other languages and make international friends!',
-  },
-  3: {
-    title: 'Campus Meetup',
-    date: 'Dec 10, 2025',
-    time: '5:00 PM',
-    location: 'Quad Lawn',
-    description: 'Casual hangout to meet classmates across departments.',
-  }
-}
+import { getEventById } from '../data/events'
 
 export default function EventDetails() {
   const { id } = useParams()
-  const e = DATA[id]
+  const e = getEventById(id)
+  const nav = useNavigate()
 
   if (!e) {
     return (
       <div className="event-wrap">
         <h1>Event not found</h1>
-        <Link to="/events" className="btn">Back to Events</Link>
+        <Link to="/events/all" className="btn">Back to Events</Link>
       </div>
     )
   }
 
   return (
     <div className="event-wrap">
-      <div className="event-hero">
+      <div className="event-hero green">
         <h1>{e.title}</h1>
       </div>
 
       <div className="meta">
-        <div><strong>Date:</strong> {e.date}</div>
-        <div><strong>Time:</strong> {e.time}</div>
+        <div><strong>Date:</strong> {new Date(e.date).toLocaleDateString('en-US',{month:'long', day:'numeric', year:'numeric'})}</div>
+        <div><strong>Time:</strong> {toTime(e.time)}</div>
         <div><strong>Location:</strong> {e.location}</div>
       </div>
 
@@ -56,10 +34,16 @@ export default function EventDetails() {
       </section>
 
       <div className="actions">
-        <Link to="/events" className="btn">Back to Events</Link>
-        <button className="btn" onClick={() => alert('Find People for this Event (coming soon)')}>Find People for this Event</button>
+        <Link to="/events/all" className="btn">Back to Events</Link>
+        <button className="btn" onClick={() => nav(`/event/${id}/find-friends`)}>Find People for this Event</button>
       </div>
     </div>
   )
+}
+
+function toTime(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  const d = new Date(); d.setHours(h, m, 0, 0);
+  return d.toLocaleTimeString([], { hour:'numeric', minute:'2-digit' });
 }
 
