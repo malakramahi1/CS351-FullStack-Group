@@ -1,0 +1,21 @@
+.event-wrap { max-width: 800px; margin: 32px auto; padding: 0 20px; }
+.event-hero { background:#e8f3ff; border:1px solid #dbeafe; border-radius:12px; padding:16px; margin-bottom:12px; }
+.meta { display:flex; gap: 24px; color:#374151; margin: 8px 0 16px 0; flex-wrap: wrap; }
+.panel { border:1px solid #e5e7eb; border-radius:12px; padding:16px; background:#fff; }
+h2 { margin: 0 0 8px 0; }
+
+.btn {
+  display:inline-block;
+  background:#2563eb;
+  color:white;
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:8px;
+  font-weight:600;
+}
+
+.actions { margin-top:16px; display:flex; gap:12px; }
+.btn:hover { filter: brightness(1.05); }
+
+.event-hero.green { background:#e8f5e9; border-color:#c8e6c9; }
+

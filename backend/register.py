@@ -1,4 +1,6 @@
 # register functionality
+from __future__ import annotations
+from login import auth_bp
 
 # imported libraries
 import json
@@ -9,7 +11,7 @@ import uuid
 import datetime
 from dataclasses import dataclass, asdict
 from typing import List, Any, Optional
-from __future__ import annotations
+# from __future__ import annotations
 
 # imported Flask libraries
 from flask import Flask, jsonify, request
@@ -141,7 +143,8 @@ class AccountIndex: # holds the indexing for each account
         if self.emailCheck(mail):  raise ValueError("Email in use") # if the email is taken, print an error 
 
         uid = uuid.uuid4().hex # makes a UUID for the account 
-        currTime = datetime.datetime.now(datetime.UTC) + "Z" # holds the current time of account registration date
+        # currTime = datetime.datetime.now(datetime.UTC) + "Z" # holds the current time of account registration date
+        currTime = datetime.datetime.now(datetime.UTC).isoformat().replace("+00:00", "Z")
         acc = Account( # account node, where hash is used for password 
             uid=uid,
             username=user,
@@ -157,6 +160,7 @@ class AccountIndex: # holds the indexing for each account
 
 # flask section
 app = Flask(__name__) # creation for flask webapp
+app.register_blueprint(auth_bp)
 DB = AccountIndex(os.getenv("USER_STORE_PATH", "users.json")) # initialize for memory db
 
 @app.after_request
