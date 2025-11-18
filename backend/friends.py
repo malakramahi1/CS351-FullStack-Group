@@ -1,25 +1,17 @@
-from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask import Blueprint, request, jsonify
 
-app = Flask(__name__)
-CORS(app)
+friends = Blueprint("friends", __name__)
 
-matches = [] 
+FRIENDS = {}
 
-@app.route('/api/matches', methods=['POST'])
-def addMatch():
-    data = request.get_json()
-    
-    # basic validation
-    if not data.get("eventId"):
-        return jsonify({"error": "eventId required"}), 400
-    
-    matches.append(data)
-    return jsonify({"message": "saved!", "match": data}), 201
+@friends.get("/friends")
+def getFriends():
+    return jsonify(FRIENDS)
 
-@app.route('/api/matches', methods=['GET'])
-def getMatches():
-    return jsonify(matches), 200
-
-if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+@friends.post("/friends")
+def addFriend():
+    data = request.json
+    user = data["user"]
+    friend = data["friend"]
+    FRIENDS.setdefault(user, []).append(friend)
+    return jsonify({"status": "friend added"})
