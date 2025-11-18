@@ -48,7 +48,6 @@ def _find_account(email: str = "", username: str = "") -> Optional[Dict[str, Any
 
 @auth_bp.route("/api/login", methods=["POST", "OPTIONS"])
 def login():
-    # CORS preflight handled by your app's after_request; respond OK here.
     if request.method == "OPTIONS":
         return ("", 204)
 
@@ -68,7 +67,7 @@ def login():
         # Do not reveal which field failed
         return jsonify({"success": False, "errors": {"credentials": "Invalid email/username or password"}}), 401
 
-    # Success: match the payload shape from /api/register
+    # success: match the payload shape from /api/register
     return jsonify({
         "success": True,
         "data": {
@@ -76,7 +75,8 @@ def login():
                 "id": acc.get("uid"),
                 "username": acc.get("username"),
                 "email": acc.get("email"),
-                "createdAt": acc.get("creation")
+                "createdAt": acc.get("creation"),
+                "major": acc.get("major", "")
             }
         }
     }), 200
