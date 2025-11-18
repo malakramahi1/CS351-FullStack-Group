@@ -10,7 +10,7 @@ export default function EventDetails() {
   if (!e) {
     return (
       <div className="event-wrap">
-        <h1>Event not found</h1>
+        <h1>Event is not found</h1>
         <Link to="/events/all" className="btn">Back to Events</Link>
       </div>
     );
