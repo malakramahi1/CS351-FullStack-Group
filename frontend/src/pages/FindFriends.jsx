@@ -1,30 +1,63 @@
-import { useParams, Link } from 'react-router-dom'
-import { getEventById } from '../data/events'
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { getEventById } from "../data/events";
+import "./findfriends.css";
 
 export default function FindFriends() {
-  const { id } = useParams()
-  const e = getEventById(id)
+  const { id } = useParams();
+  const e = getEventById(id);
+  const nav = useNavigate();
 
-  function handleSubmit(ev) {
-    ev.preventDefault()
-    alert('Submitted! (This will create a request once backend is connected)')
+  if (!e) {
+    return (
+      <div className="event-wrap">
+        <h1>Event not found</h1>
+      </div>
+    );
   }
-
-  if (!e) return <div className="event-wrap"><h1>Event not found</h1></div>
 
   return (
     <div className="event-wrap">
-      <h1>Find Friends: {e.title}</h1>
-      <form onSubmit={handleSubmit} style={{display:'grid', gap:12, maxWidth:480}}>
-        <label>Year<select required defaultValue=""><option value="" disabled>Choose…</option><option>Freshman</option><option>Sophomore</option><option>Junior</option><option>Senior</option><option>Graduate</option></select></label>
-        <label>Major<input required placeholder="e.g., CS" /></label>
-        <label>Study group / comment (optional)<textarea rows="3" placeholder="Any preferences or notes?" /></label>
-        <div style={{display:'flex', gap:12}}>
-          <Link to={`/event/${id}`} className="btn">Back</Link>
-          <button className="btn" type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-  )
-}
 
+      {/* Top Navigation */}
+      <nav className="top-nav">
+        <div className="logo">Campus Connect</div>
+        <div className="nav-links">
+          <Link to="/home">Home</Link>
+          <Link to="/events/all">Events</Link>
+        </div>
+  <Link to="/profile" className="profile-icon">👤</Link>
+      </nav>
+
+      {/* Back Link */}
+      <div className="back-link-wrap">
+        <Link to={`/event/${id}`} className="back-link">
+          ← Back to Event Details
+        </Link>
+      </div>
+
+      {/* Page Title */}
+      <h1 className="ff-title">Find Friends: {e.blurbTitle}</h1>
+
+      {/* Are you going panel */}
+      <section className="ff-panel">
+        <h2>Are you going?</h2>
+        <p>Click the button to add yourself to the list of attendees</p>
+
+        <button className="going-btn">
+          I'm Going!
+        </button>
+      </section>
+
+      {/* Who’s Going panel */}
+      <section className="ff-panel">
+        <h2>Who’s Going (3)</h2>
+
+        <div className="going-grid">
+          <div className="going-card">Om P.</div>
+          <div className="going-card">Dev K.</div>
+          <div className="going-card">Mandar P.</div>
+        </div>
+      </section>
+    </div>
+  );
+}
