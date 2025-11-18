@@ -1,21 +1,107 @@
-.event-wrap { max-width: 800px; margin: 32px auto; padding: 0 20px; }
-.event-hero { background:#e8f3ff; border:1px solid #dbeafe; border-radius:12px; padding:16px; margin-bottom:12px; }
-.meta { display:flex; gap: 24px; color:#374151; margin: 8px 0 16px 0; flex-wrap: wrap; }
-.panel { border:1px solid #e5e7eb; border-radius:12px; padding:16px; background:#fff; }
-h2 { margin: 0 0 8px 0; }
-
-.btn {
-  display:inline-block;
-  background:#2563eb;
-  color:white;
-  text-decoration:none;
-  padding:8px 12px;
-  border-radius:8px;
-  font-weight:600;
+/* Entire Page */
+.event-wrap {
+  background: #f3f4f6;
+  min-height: 100vh;
+  font-family: Inter, sans-serif;
+  padding-bottom: 40px;
 }
 
-.actions { margin-top:16px; display:flex; gap:12px; }
-.btn:hover { filter: brightness(1.05); }
+/* Top Navigation */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
 
-.event-hero.green { background:#e8f5e9; border-color:#c8e6c9; }
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
 
+.nav-links a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #111;
+  font-size: 1.1rem;
+}
+
+.profile-icon {
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Hero Title Banner */
+.event-hero {
+  padding: 36px;
+  border-radius: 0 0 20px 20px;
+  text-align: center;
+}
+
+.event-hero h1,
+.hero-title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  color: black !important;   /* <-- make event name visible */
+}
+
+/* Event Meta Section */
+.event-meta {
+  background: white;
+  margin: 20px 40px 0;
+  padding: 24px;
+  border-radius: 20px;
+}
+
+.event-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+/* Date | Time — Location row */
+.event-info-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: #444;
+}
+
+/* About Section */
+.event-panel {
+  background: white;
+  margin: 20px 40px;
+  padding: 26px;
+  border-radius: 20px;
+}
+
+.event-panel h2 {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+/* Find Friends Button */
+.find-friends-wrap {
+  margin: 20px 40px;
+}
+
+.find-friends-btn {
+  width: 100%;
+  padding: 16px 0;
+  font-size: 1.2rem;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.find-friends-btn:hover {
+  background: #1e4fd1;
+}

@@ -1,0 +1,125 @@
+/* Background */
+.events-wrap {
+  background: #f3f4f6;
+  min-height: 100vh;
+  font-family: Inter, sans-serif;
+  padding-bottom: 40px;
+}
+
+/* Navigation */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: white;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.nav-links a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #111;
+  font-size: 1.1rem;
+}
+
+.profile-icon {
+  font-size: 2rem;
+}
+
+/* Title */
+.events-title {
+  margin: 26px 40px 20px;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+/* Filter bar */
+.filter-bar {
+  background: #e5e7eb;
+  margin: 20px 40px;
+  padding: 22px;
+  border-radius: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.search-input {
+  flex: 1;
+  padding: 16px 18px;
+  background: #f9fafb;
+  border-radius: 30px;
+  border: none;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-btn {
+  padding: 12px 18px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  background: white;
+}
+
+/* Grid */
+.events-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  padding: 20px 40px;
+}
+
+/* Event Card */
+.event-card {
+  width: 320px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  text-align: center;   /* FIX BUTTON ALIGNMENT */
+}
+
+.event-card-top {
+  padding: 28px;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.event-card-bottom {
+  padding: 22px;
+}
+
+.event-name {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.event-meta,
+.event-location {
+  color: #444;
+  margin: 4px 0;
+}
+
+/* Perfectly Centered Button */
+.details-btn {
+  display: block;
+  width: 80%;
+  margin: 16px auto 0;
+  padding: 12px 0;
+  background: #2563eb;
+  color: white;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  text-align: center;
+}
