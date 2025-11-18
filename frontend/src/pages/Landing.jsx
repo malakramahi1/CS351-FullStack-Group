@@ -7,11 +7,11 @@ export default function Landing() {
     backgroundColor: "#2563eb",
     color: "white",
     border: "none",
-    padding: "12px 20px",
-    borderRadius: "8px",
+    padding: "16px 28px",
+    borderRadius: "10px",
     cursor: "pointer",
-    fontSize: "1rem",
-    fontWeight: 500,
+    fontSize: "1.125rem",
+    fontWeight: 600,
   };
 
   return (
@@ -23,27 +23,30 @@ export default function Landing() {
           "Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Top bar with Log In / Create Account */}
+      {/* Top bar */}
       <header
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          padding: "20px 48px",
+          padding: "28px 60px",
           borderBottom: "1px solid #e5e7eb",
         }}
       >
-        <h2 style={{ fontWeight: 700, fontSize: "1.5rem" }}>Campus Connect</h2>
-        <div style={{ display: "flex", gap: "12px" }}>
+        <h2 style={{ fontWeight: 800, fontSize: "1.75rem" }}>
+          Campus Connect
+        </h2>
+        <div style={{ display: "flex", gap: "16px" }}>
           <button
             style={{
               backgroundColor: "white",
-              border: "1px solid #2563eb",
+              border: "2px solid #2563eb",
               color: "#2563eb",
-              borderRadius: "8px",
-              padding: "8px 16px",
+              borderRadius: "10px",
+              padding: "10px 18px",
               cursor: "pointer",
-              fontWeight: 500,
+              fontWeight: 600,
+              fontSize: "1rem",
             }}
             onClick={() => nav("/login")}
           >
@@ -52,12 +55,13 @@ export default function Landing() {
           <button
             style={{
               backgroundColor: "#2563eb",
-              border: "1px solid #2563eb",
+              border: "2px solid #2563eb",
               color: "white",
-              borderRadius: "8px",
-              padding: "8px 16px",
+              borderRadius: "10px",
+              padding: "10px 18px",
               cursor: "pointer",
-              fontWeight: 500,
+              fontWeight: 600,
+              fontSize: "1rem",
             }}
             onClick={() => nav("/register")}
           >
@@ -73,16 +77,16 @@ export default function Landing() {
           flexWrap: "wrap",
           alignItems: "center",
           justifyContent: "center",
-          gap: "40px",
-          padding: "60px 48px",
+          gap: "60px",
+          padding: "80px 60px",
         }}
       >
-        <div style={{ flex: "1 1 400px", maxWidth: "480px" }}>
+        <div style={{ flex: "1 1 460px", maxWidth: "520px" }}>
           <h1
             style={{
-              fontSize: "2.5rem",
-              fontWeight: 700,
-              marginBottom: "16px",
+              fontSize: "3rem",
+              fontWeight: 800,
+              marginBottom: "20px",
               lineHeight: 1.2,
             }}
           >
@@ -92,63 +96,32 @@ export default function Landing() {
           </h1>
           <p
             style={{
-              fontSize: "1rem",
+              fontSize: "1.125rem",
               color: "#374151",
-              marginBottom: "24px",
+              marginBottom: "32px",
             }}
           >
-            Connect with classmates, make lasting memories, and discover
-            different events.
+            Connect with classmates, make lasting memories, and explore a variety
+            of events happening across campus.
           </p>
-          <button
-            style={blueBtn}
-            onClick={() => nav("/events/all")}
-          >
+
+          <button style={blueBtn} onClick={() => nav("/events/all")}>
             Explore Events
           </button>
         </div>
 
         <img
-	  src="https://today.uic.edu/wp-content/uploads/2024/10/dji_20241023123615_0139_d_mh_websize.jpg"
+          src="https://today.uic.edu/wp-content/uploads/2024/10/dji_20241023123615_0139_d_mh_websize.jpg"
           alt="UIC Campus"
           style={{
-            width: "480px",
+            width: "540px",
             height: "auto",
-            borderRadius: "16px",
+            borderRadius: "20px",
             objectFit: "cover",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
           }}
         />
       </main>
-
-      {/* Browse events strip at bottom */}
-      <section
-        style={{
-          backgroundColor: "#f9fafb",
-          padding: "40px 48px",
-          textAlign: "center",
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "1.5rem",
-            fontWeight: 600,
-            marginBottom: "16px",
-          }}
-        >
-          Browse Local Events
-        </h2>
-        <p
-          style={{
-            maxWidth: "600px",
-            margin: "0 auto",
-            color: "#4b5563",
-          }}
-        >
-          Explore all of the upcoming events on campus without an account.
-        </p>
-      </section>
     </div>
   );
 }
-

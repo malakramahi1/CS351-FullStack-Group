@@ -1,12 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
+  const nav = useNavigate();
 
   function handleSubmit(e){
     e.preventDefault();
-    alert(`(mock) logging in as ${email}`);
+    // Instead of alert, go to home:
+    nav("/home"); 
   }
 
   const input = { width:"100%", padding:"10px 12px", border:"1px solid #ddd", borderRadius:8 };
@@ -18,15 +21,16 @@ export default function Login() {
       <form onSubmit={handleSubmit} style={{display:"grid", gap:12}}>
         <label>
           <div>Email</div>
-          <input value={email} onChange={e=>setEmail(e.target.value)} type="email" required style={input}/>
+          <input value={email} onChange={e=>setEmail(e.target.value)} type="email" style={input}/>
         </label>
         <label>
           <div>Password</div>
-          <input value={pw} onChange={e=>setPw(e.target.value)} type="password" required style={input}/>
+          <input value={pw} onChange={e=>setPw(e.target.value)} type="password" style={input}/>
         </label>
-        <button type="submit" style={{...btn, width:"fit-content"}}>Log In</button>
+        <button type="submit" style={{...btn, width:"fit-content"}}>
+          Log In
+        </button>
       </form>
     </div>
   );
 }
-

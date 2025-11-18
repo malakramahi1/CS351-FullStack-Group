@@ -1,11 +1,10 @@
 # backend/login.py
-import os
-import json
+import os, json
 from typing import Optional, Dict, Any
 from flask import Blueprint, request, jsonify
 from werkzeug.security import check_password_hash
 
-login_bp = Blueprint("login", __name__)
+auth_bp = Blueprint("auth", __name__)
 
 # Reuse the same users.json path as register.py
 USER_STORE_PATH = os.environ.get(
@@ -47,8 +46,8 @@ def _find_account(email: str = "", username: str = "") -> Optional[Dict[str, Any
             return acc
     return None
 
-@login_bp.route("/api/login", methods=["POST", "OPTIONS"])
-def handle_login():
+@auth_bp.route("/api/login", methods=["POST", "OPTIONS"])
+def login():
     # CORS preflight handled by your app's after_request; respond OK here.
     if request.method == "OPTIONS":
         return ("", 204)
