@@ -1,6 +1,5 @@
 # register functionality
 from __future__ import annotations
-from login import auth_bp
 
 # imported libraries
 import json
@@ -14,9 +13,14 @@ from typing import List, Any, Optional
 # from __future__ import annotations
 
 # imported Flask libraries
-from flask import Flask, jsonify, request
+from flask import Blueprint, jsonify, request
 from werkzeug.security import generate_password_hash
 
+USER_STORE_PATH = os.environ.get(
+    "USER_STORE_PATH",
+    os.path.join(os.path.dirname(__file__), "users.json")
+)
+register_bp = Blueprint("register", __name__)
 
 
 class _Node: # node helper class.
@@ -99,12 +103,12 @@ emailBounds    = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 class AccountIndex: # holds the indexing for each account 
-    def __init__(self, path: Optional[str] = "users.json"):
+    def __init__(self, path: Optional[str] = None):
         self._id: dict[str, Account] = {} # main dictionary of accounts 
         self.emailInd = SkipList() # email indexes 
         self.nameInd  = SkipList() # username 
-        self._path = path
-        if path and os.path.exists(path): # if the path exists, then load in
+        self._path = path or USER_STORE_PATH
+        if self._path and os.path.exists(self._path): # if the path exists, then load in
             self._load()
 
     def _save(self) -> None: # saves account data as a json file 
@@ -158,19 +162,7 @@ class AccountIndex: # holds the indexing for each account
         self._save()
         return acc
 
-# flask section
-app = Flask(__name__) # creation for flask webapp
-app.register_blueprint(auth_bp)
-DB = AccountIndex(os.getenv("USER_STORE_PATH", "users.json")) # initialize for memory db
-
-@app.after_request
-def cors(resp): # frontend test 
-    origin = request.headers.get("Origin", "*")
-    resp.headers["Access-Control-Allow-Origin"] = origin
-    resp.headers["Vary"] = "Origin"
-    resp.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-    resp.headers["Access-Control-Allow-Methods"] = "POST, GET, OPTIONS"
-    return resp
+DB = AccountIndex(USER_STORE_PATH) # initialize for memory db
 
 def _jsonCheck(payload: dict) -> dict: # checks if the json file is valid 
     user = (payload.get("username") or "").strip()
@@ -185,8 +177,8 @@ def _jsonCheck(payload: dict) -> dict: # checks if the json file is valid
         errMessage["password"] = "Passwords must be atleast 8 characters"
     return errMessage   
 
-@app.route("/api/register", methods=["POST", "OPTIONS"]) # routes for registration tab
-def register(): # registration
+@register_bp.route("/api/register", methods=["POST", "OPTIONS"]) # routes for registration tab
+def register():
     if request.method == "OPTIONS": # 
         return ("", 204)
 
@@ -215,9 +207,6 @@ def register(): # registration
         }
     }), 201
 
-@app.get("/_debug/users")
+@register_bp.get("/_debug/users")
 def getUsers(): # gets all users 
     return jsonify([asdict(act) for act in DB._id.values()])
-
-if __name__ == "__main__": # main for running on port 5001 
-    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5001)), debug=True)
