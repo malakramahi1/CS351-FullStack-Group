@@ -14,7 +14,7 @@ from typing import List, Any, Optional
 # from __future__ import annotations
 
 # imported Flask libraries
-from flask import Flask, jsonify, request
+from flask import Blueprint, Flask, jsonify, request
 from werkzeug.security import generate_password_hash
 
 
@@ -90,7 +90,8 @@ class Account: # account class
     username: str
     email: str
     passHash: str
-    creation: str  
+    creation: str
+    major: str = ""
 
 
 # holds for username and email validity 
@@ -120,6 +121,7 @@ class AccountIndex: # holds the indexing for each account
             for uid, rec in blob.items(): # for every item in the json, implement to a new Account node 
                 if "creation" not in rec and "created_at" in rec: # used for overflow check instances
                     rec["creation"] = rec.pop("created_at")
+                rec.setdefault("major", "")
                 acct = Account(**rec) # new account node 
                 self._id[uid] = acct # hold the UID
                 self.emailInd.insert(acct.email.lower(), uid) # insert new email to account node 
@@ -135,9 +137,10 @@ class AccountIndex: # holds the indexing for each account
     def userCheck(self, username: str) -> bool: # checks if the username is already taken
         return self.nameInd.getVal(username.lower()) is not None
 
-    def create(self, username: str, email: str, password: str) -> Account: # create an account 
+    def create(self, username: str, email: str, password: str, major: str = "") -> Account: # create an account 
         user = username.strip()
         mail  = email.strip()
+        study = (major or "").strip()
 
         if self.userCheck(user):  raise ValueError("Username in use") # if the username is taken, print an error
         if self.emailCheck(mail):  raise ValueError("Email in use") # if the email is taken, print an error 
@@ -151,6 +154,7 @@ class AccountIndex: # holds the indexing for each account
             email=mail,
             passHash=generate_password_hash(password, method="scrypt"), # werkzeug used to hash the password 
             creation=currTime,
+            major=study,
         )
         self._id[uid] = acc 
         assert self.nameInd.insert(user.lower(), uid)
@@ -159,11 +163,10 @@ class AccountIndex: # holds the indexing for each account
         return acc
 
 # flask section
-app = Flask(__name__) # creation for flask webapp
-app.register_blueprint(auth_bp)
+register_bp = Blueprint("register", __name__) # expose blueprint for main app
 DB = AccountIndex(os.getenv("USER_STORE_PATH", "users.json")) # initialize for memory db
 
-@app.after_request
+@register_bp.after_request
 def cors(resp): # frontend test 
     origin = request.headers.get("Origin", "*")
     resp.headers["Access-Control-Allow-Origin"] = origin
@@ -176,6 +179,7 @@ def _jsonCheck(payload: dict) -> dict: # checks if the json file is valid
     user = (payload.get("username") or "").strip()
     email = (payload.get("email") or "").strip()
     password = payload.get("password") or ""
+    major = (payload.get("major") or "").strip()
     errMessage = {}
     if not userBounds.fullmatch(user): 
         errMessage["username"] = "3-16 characters only: letters, numbers, _"
@@ -183,9 +187,11 @@ def _jsonCheck(payload: dict) -> dict: # checks if the json file is valid
         errMessage["email"] = "Email is invalid"
     if len(password) < 8: 
         errMessage["password"] = "Passwords must be atleast 8 characters"
+    if not major:
+        errMessage["major"] = "Major is required"
     return errMessage   
 
-@app.route("/api/register", methods=["POST", "OPTIONS"]) # routes for registration tab
+@register_bp.route("/api/register", methods=["POST", "OPTIONS"]) # routes for registration tab
 def register(): # registration
     if request.method == "OPTIONS": # 
         return ("", 204)
@@ -196,7 +202,7 @@ def register(): # registration
         return jsonify({"success": False, "errors": errors}), 400 # returns a 400 bad reequest if theres errors
 
     try:
-        acc = DB.create(body["username"], body["email"], body["password"])
+        acc = DB.create(body["username"], body["email"], body["password"], body.get("major", ""))
     except ValueError as exception: # if theres an error, output which error in json
         msg = str(exception)
         field = "username" if msg == "Username in use" else "email"
@@ -210,14 +216,18 @@ def register(): # registration
                 "id": acc.uid,
                 "username": acc.username,
                 "email": acc.email,
-                "createdAt": acc.creation
+                "createdAt": acc.creation,
+                "major": acc.major
             }
         }
     }), 201
 
-@app.get("/_debug/users")
+@register_bp.get("/_debug/users")
 def getUsers(): # gets all users 
     return jsonify([asdict(act) for act in DB._id.values()])
 
 if __name__ == "__main__": # main for running on port 5001 
+    app = Flask(__name__)
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(register_bp)
     app.run(host="0.0.0.0", port=int(os.getenv("PORT", 5001)), debug=True)
