@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api";
 
 export default function Register() {
@@ -9,6 +10,8 @@ export default function Register() {
     confirm: "",
     major: ""
   });
+
+  const nav = useNavigate();
 
   function update(k, v) {
     setForm((s) => ({ ...s, [k]: v }));
@@ -29,7 +32,20 @@ function submit(e) {
       return;
     }
 
-    alert("Account created for " + res.data.data.user.username);
+    const account = res?.data?.data?.user;
+    const [first, ...rest] = (form.name || account?.username || "").trim().split(/\s+/);
+    const profile = {
+      id: account?.id || "",
+      username: account?.username || form.name || "",
+      email: account?.email || form.email || "",
+      major: account?.major || form.major || "",
+      firstName: first || account?.username || "",
+      lastName: rest.join(" "),
+    };
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+
+    alert("Account created for " + (account?.username || form.name));
+    nav("/events/all");
   });
 }
 

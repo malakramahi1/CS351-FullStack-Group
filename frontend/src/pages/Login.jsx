@@ -21,8 +21,35 @@ function handleSubmit(e) {
       return;
     }
 
+    const backendUser = res?.data?.data?.user;
+    if (!backendUser) {
+      alert("Login response was missing user data");
+      return;
+    }
+
+    const stored = (() => {
+      try {
+        return JSON.parse(localStorage.getItem("userProfile"));
+      } catch (err) {
+        console.warn("Failed to parse stored profile", err);
+        return null;
+      }
+    })();
+
+    const sameUser = stored && stored.id === backendUser.id;
+    const [first, ...rest] = (backendUser.username || "").trim().split(/\s+/);
+    const profile = {
+      id: backendUser.id,
+      username: backendUser.username || "",
+      email: backendUser.email || "",
+      major: backendUser.major || "",
+      firstName: sameUser ? stored.firstName : first || backendUser.username || "",
+      lastName: sameUser ? stored.lastName : rest.join(" "),
+    };
+    localStorage.setItem("userProfile", JSON.stringify(profile));
+
     // success: backend returned a valid user
-    nav("/home");
+    nav("/events/all");
   }).catch((err) => {
     console.error(err);
     alert("Unexpected error logging in");

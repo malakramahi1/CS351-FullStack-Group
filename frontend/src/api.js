@@ -35,13 +35,13 @@ export async function loginUser(email, password) {
 
 // EVENTS — GET
 export async function fetchEvents() {
-  const res = await fetch(`${API_BASE}/events`);
+  const res = await fetch(`${API_BASE}/api/events`);
   return res.json();
 }
 
 // EVENTS — POST (optional, for later if you add event creation)
 export async function createEvent(evt) {
-  const res = await fetch(`${API_BASE}/events`, {
+  const res = await fetch(`${API_BASE}/api/events`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(evt),
@@ -49,3 +49,29 @@ export async function createEvent(evt) {
   return res.json();
 }
 
+// FRIENDS / ATTENDEES
+export async function fetchAttendees(eventId) {
+  const res = await fetch(`${API_BASE}/events/${eventId}/attendees`);
+  const data = await res.json().catch(() => ({}));
+  return { ok: res.ok, data };
+}
+
+export async function joinEventAttendees(eventId, attendee) {
+  const res = await fetch(`${API_BASE}/events/${eventId}/attendees`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(attendee),
+  });
+  const data = await res.json().catch(() => ({}));
+  return { ok: res.ok, data };
+}
+
+export async function syncAttendeeDisplayName(userId, displayName) {
+  const res = await fetch(`${API_BASE}/users/${userId}/profile-sync`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ displayName }),
+  });
+  const data = await res.json().catch(() => ({}));
+  return { ok: res.ok, data };
+}

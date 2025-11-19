@@ -106,3 +106,23 @@ def joinEvent(eventId: str):
         _saveStore(store)
 
     return jsonify({"attendees": attendees}), 201
+
+@friends.post("/users/<userId>/profile-sync")
+def syncAttendeeProfile(userId: str):
+    body = request.get_json(silent=True) or {}
+    display_name = (body.get("displayName") or "").strip()
+    if not display_name:
+        return jsonify({"error": "displayName is required"}), 400
+
+    store = _loadStore()
+    changed = False
+    for attendees in store["attendingByEvent"].values():
+        for attendee in attendees:
+            if attendee.get("userId") == userId and attendee.get("displayName") != display_name:
+                attendee["displayName"] = display_name
+                changed = True
+
+    if changed:
+        _saveStore(store)
+
+    return jsonify({"updated": changed})

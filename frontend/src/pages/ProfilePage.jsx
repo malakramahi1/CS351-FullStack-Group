@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { syncAttendeeDisplayName } from "../api";
 import "./profile.css";
 
 export default function ProfilePage() {
@@ -9,6 +10,8 @@ export default function ProfilePage() {
     return saved
       ? JSON.parse(saved)
       : {
+          id: "",
+          username: "",
           firstName: "Om",
           lastName: "Patel",
           email: "testname@gmail.com",
@@ -16,15 +19,42 @@ export default function ProfilePage() {
         };
   });
 
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("userProfile");
+      if (saved) {
+        setUser((prev) => {
+          const parsed = JSON.parse(saved);
+          return { ...prev, ...parsed };
+        });
+      }
+    } catch (err) {
+      console.warn("Failed to hydrate profile from storage", err);
+    }
+  }, []);
+
   const [editing, setEditing] = useState(false);
 
   function handleChange(field, value) {
     setUser((prev) => ({ ...prev, [field]: value }));
   }
 
-  function saveChanges() {
+  async function saveChanges() {
     localStorage.setItem("userProfile", JSON.stringify(user));  
     setEditing(false);
+
+    if (user.id) {
+      const displayName = [user.firstName, user.lastName]
+        .filter(Boolean)
+        .join(" ")
+        .trim() || user.username || user.email || user.id;
+      try {
+        await syncAttendeeDisplayName(user.id, displayName);
+      } catch (err) {
+        console.warn("Unable to sync attendee display name", err);
+      }
+    }
+
     alert("Profile updated!");
   }
 
@@ -52,7 +82,7 @@ export default function ProfilePage() {
           First Name
           <input
             disabled={!editing}
-            value={user.firstName}
+            value={user.firstName || ""}
             onChange={(e) => handleChange("firstName", e.target.value)}
           />
         </label>
@@ -61,7 +91,7 @@ export default function ProfilePage() {
           Last Name
           <input
             disabled={!editing}
-            value={user.lastName}
+            value={user.lastName || ""}
             onChange={(e) => handleChange("lastName", e.target.value)}
           />
         </label>
@@ -71,7 +101,7 @@ export default function ProfilePage() {
           <input
             disabled={!editing}
             type="email"
-            value={user.email}
+            value={user.email || ""}
             onChange={(e) => handleChange("email", e.target.value)}
           />
         </label>
@@ -80,7 +110,7 @@ export default function ProfilePage() {
           Major
           <input
             disabled={!editing}
-            value={user.major}
+            value={user.major || ""}
             onChange={(e) => handleChange("major", e.target.value)}
           />
         </label>
