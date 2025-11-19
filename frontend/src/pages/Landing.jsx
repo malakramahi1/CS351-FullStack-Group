@@ -23,7 +23,6 @@ export default function Landing() {
           "Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
-      {/* Top bar */}
       <header
         style={{
           display: "flex",
@@ -70,7 +69,6 @@ export default function Landing() {
         </div>
       </header>
 
-      {/* Hero section */}
       <main
         style={{
           display: "flex",

@@ -1,20 +1,25 @@
-/* Entire page */
 .home-wrap {
   background: #f3f4f6;
   min-height: 100vh;
   font-family: Inter, sans-serif;
   padding-bottom: 40px;
 }
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 30px; 
+}
 
-/* Top Navigation */
+
 .top-nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; 
   align-items: center;
   padding: 18px 40px;
   background: white;
   border-bottom: 1px solid #e5e7eb;
 }
+
 
 .logo {
   font-size: 1.4rem;
@@ -33,7 +38,6 @@
   cursor: pointer;
 }
 
-/* Welcome Banner */
 .welcome-box {
   background: #e5e7eb;
   padding: 32px;
@@ -47,7 +51,6 @@
   font-weight: 700;
 }
 
-/* Section Header */
 .section-head {
   display: flex;
   justify-content: space-between;
@@ -68,7 +71,6 @@
   text-decoration: none;
 }
 
-/* Event Grid */
 .grid {
   display: flex;
   justify-content: center;
@@ -78,43 +80,45 @@
   margin-top: 10px;
 }
 
-/* Event Card */
 .card {
   width: 320px;
   background: white;
-  padding: 28px 20px 32px;
+  padding: 0; 
   border-radius: 22px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   text-align: center;
+  overflow: hidden;
 }
 
-/* Event Title */
+.card-title-section {
+  padding: 24px;
+  border-radius: 22px 22px 0 0;
+}
+
 .event-title {
   font-size: 1.3rem;
   font-weight: 700;
-  margin-bottom: 14px;
-  color: #111;
+  margin-bottom: 0;
+  color: white; 
 }
 
-/* Date + Time */
 .muted {
   color: #555;
   font-size: 0.95rem;
+  margin-top: 20px;
   margin-bottom: 6px;
 }
 
-/* Location */
 .location {
   color: #444;
   font-size: 0.95rem;
   margin-bottom: 20px;
 }
 
-/* Event Details Button */
 .btn {
   display: block;
   width: 80%;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   padding: 14px 0;
   background: #2563eb;
   color: white;

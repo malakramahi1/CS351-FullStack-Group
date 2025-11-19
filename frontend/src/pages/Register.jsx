@@ -68,7 +68,6 @@ export default function Register() {
           />
         </label>
 
-        {/* Added Major field */}
         <label>
           <div>Enter Major</div>
           <input

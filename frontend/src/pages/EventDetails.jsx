@@ -7,6 +7,18 @@ export default function EventDetails() {
   const e = getEventById(id);
   const nav = useNavigate();
 
+  function randomColor() {
+    const colors = [
+      "#FFB980", 
+      "#9B88B8", 
+      "#90CAF9", 
+      "#AED581", 
+      "#F48FB1", 
+      "#80DEEA", 
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
+
   if (!e) {
     return (
       <div className="event-wrap">
@@ -19,56 +31,47 @@ export default function EventDetails() {
   return (
     <div className="event-wrap">
 
-      {/* Top Navigation */}
-      <nav className="top-nav">
-        <div className="logo">Campus Connect</div>
-        <div className="nav-links">
-          <Link to="/home">Home</Link>
-          <Link to="/events/all">Events</Link>
-        </div>
-  <Link to="/profile" className="profile-icon">👤</Link>
-      </nav>
+<nav className="top-nav">
 
-      {/* Hero Title Banner */}
-      <div className="event-hero" style={{ backgroundColor: e.color }}>
+  <div className="nav-left">
+    <div className="logo">Campus Connect</div>
+    <div className="nav-links">
+      <Link to="/home">Home</Link>
+      <Link to="/events/all">Events</Link>
+    </div>
+  </div>
+
+  <Link to="/profile" className="profile-icon">👤</Link>
+</nav>
+
+
+      <div className="event-hero" style={{ backgroundColor: randomColor() }}>
         <h1 className="hero-title">{e.title}</h1>
       </div>
 
-      {/* Event Meta Section */}
       <div className="event-meta">
 
-        {/* Event Full Name (title + year) */}
-        <h2 className="event-name">
-          {e.blurbTitle}
-        </h2>
+        <h2 className="event-name">{e.blurbTitle}</h2>
 
-        {/* Date | Time — Location */}
-        <div className="event-info-row">
-          <span>
-            {new Date(e.date).toLocaleDateString("en-US", {
-              month: "long",
-              day: "numeric",
-              year: "numeric"
-            })}
-          </span>
+        <div className="event-info-column">
+          <p><strong>Date:</strong> {new Date(e.date).toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric"
+          })}</p>
 
-          <span> | </span>
+          <p><strong>Time:</strong> {toTime(e.time)}</p>
 
-          <span>{toTime(e.time)}</span>
-
-          <span> — </span>
-
-          <span>{e.location}</span>
+          <p><strong>Location:</strong> {e.location}</p>
         </div>
+
       </div>
 
-      {/* About Section */}
       <section className="event-panel">
         <h2>About this Event</h2>
         <p>{e.description}</p>
       </section>
 
-      {/* Find Friends Button */}
       <div className="find-friends-wrap">
         <button
           className="find-friends-btn"
@@ -82,7 +85,6 @@ export default function EventDetails() {
   );
 }
 
-// Format time
 function toTime(hhmm) {
   const [h, m] = hhmm.split(":").map(Number);
   const d = new Date();
