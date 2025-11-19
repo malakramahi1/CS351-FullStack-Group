@@ -36,7 +36,7 @@ export default function FindFriends() {
       </div>
 
       {/* Page Title */}
-      <h1 className="ff-title">Find Friends: {e.blurbTitle}</h1>
+      <h1 className="ff-title">Find Friends: {e.blurbTitle || e.title}</h1>
 
       {/* Are you going panel */}
       <section className="ff-panel">
