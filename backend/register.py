@@ -95,7 +95,7 @@ class Account: # account class
 
 
 # holds for username and email validity 
-userBounds = re.compile(r"^[A-Za-z0-9_]{3,16}$")
+userBounds = re.compile(r"^[A-Za-z0-9_ ]{3,16}$")
 emailBounds    = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 

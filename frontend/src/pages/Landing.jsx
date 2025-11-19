@@ -107,6 +107,10 @@ export default function Landing() {
     alignItems: "center",
     gap: 20,
     boxShadow: "0 12px 30px rgba(15, 23, 42, 0.06)",
+    cursor: "pointer",
+    border: "none",
+    width: "100%",
+    textAlign: "left",
   };
 
   const calendarIcon = {
@@ -188,7 +192,7 @@ export default function Landing() {
         {/* Browse Local Events card */}
         <section>
           <h2 style={sectionTitle}>Browse Local Events</h2>
-          <div style={cardRow}>
+          <button type="button" style={cardRow} onClick={() => nav("/events/all")}>
             <div style={calendarIcon}>📅</div>
             <div>
               <div style={cardTextTitle}>Browse Local Events</div>
@@ -198,10 +202,9 @@ export default function Landing() {
                 view the full events listing.
               </p>
             </div>
-          </div>
+          </button>
         </section>
       </div>
     </div>
   );
 }
-

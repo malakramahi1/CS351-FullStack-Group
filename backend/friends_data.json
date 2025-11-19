@@ -1,0 +1,41 @@
+{
+  "friendsByUser": {},
+  "attendingByEvent": {
+    "2": [
+      {
+        "userId": "16d6401f19df433fb0e46aa5fd68febd",
+        "displayName": "YoYo Yoooo",
+        "joinedAt": "2025-11-19T16:18:56.158362Z"
+      },
+      {
+        "userId": "768ee0c66e65406bbbb0d27b7320bd34",
+        "displayName": "testaccount",
+        "joinedAt": "2025-11-19T16:20:33.532593Z"
+      },
+      {
+        "userId": "8528b86583a74c8c93c79fec400eb644",
+        "displayName": "hello brobroman",
+        "joinedAt": "2025-11-19T16:24:37.900653Z"
+      }
+    ],
+    "3": [
+      {
+        "userId": "768ee0c66e65406bbbb0d27b7320bd34",
+        "displayName": "testaccount",
+        "joinedAt": "2025-11-19T16:20:27.604324Z"
+      },
+      {
+        "userId": "8528b86583a74c8c93c79fec400eb644",
+        "displayName": "hello brobroman",
+        "joinedAt": "2025-11-19T16:25:30.294172Z"
+      }
+    ],
+    "4": [
+      {
+        "userId": "8528b86583a74c8c93c79fec400eb644",
+        "displayName": "hello brobroman",
+        "joinedAt": "2025-11-19T16:28:26.636605Z"
+      }
+    ]
+  }
+}
