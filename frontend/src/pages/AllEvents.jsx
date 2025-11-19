@@ -7,28 +7,24 @@ export default function AllEvents() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("newest");
-
-
-  const baseEvents = events.slice(0, 2);
-
-
-  const COLORS = ["#F4A261", "#2A9D8F", "#E76F51", "#457B9D", "#E9C46A", "#6D597A"];
+  const baseEvents = events;
 
   const list = useMemo(() => {
     let arr = [...baseEvents];
 
-   
+    // SEARCH
     if (search.trim() !== "") {
       arr = arr.filter((e) =>
         e.title.toLowerCase().includes(search.toLowerCase())
       );
     }
 
-
+    // CATEGORY FILTER
     if (category !== "all") {
       arr = arr.filter((e) => e.category === category);
     }
 
+    // SORT
     arr.sort((a, b) => {
       const da = new Date(a.date + " " + a.time);
       const db = new Date(b.date + " " + b.time);
@@ -36,26 +32,25 @@ export default function AllEvents() {
     });
 
     return arr;
-  }, [search, category, sort]);
+  }, [baseEvents, search, category, sort]);
 
   return (
     <div className="events-wrap">
 
-<nav className="top-nav">
-
-  <div className="nav-left">
-    <div className="logo">Campus Connect</div>
-    <div className="nav-links">
-      <Link to="/home">Home</Link>
-      <Link to="/events/all">Events</Link>
-    </div>
-  </div>
-
+      {/* Top Navigation */}
+      <nav className="top-nav">
+        <div className="logo">Campus Connect</div>
+        <div className="nav-links">
+          <Link to="/home">Home</Link>
+          <Link to="/events/all">Events</Link>
+        </div>
   <Link to="/profile" className="profile-icon">👤</Link>
-</nav>
+      </nav>
 
+      {/* Title */}
       <h1 className="events-title">All Upcoming Events</h1>
 
+      {/* Search + Filters */}
       <div className="filter-bar">
         <input
           className="search-input"
@@ -65,6 +60,13 @@ export default function AllEvents() {
         />
 
         <div className="filter-controls">
+          <select
+            className="filter-btn"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="all">All Categories</option>
+          </select>
 
           <select
             className="filter-btn"
@@ -77,19 +79,22 @@ export default function AllEvents() {
         </div>
       </div>
 
+      {/* Events */}
       <div className="events-grid">
         {list.map((e) => (
           <article key={e.id} className="event-card">
 
             <div
               className="event-card-top"
-              style={{ backgroundColor: COLORS[Math.floor(Math.random() * COLORS.length)] }}
+              style={{ backgroundColor: e.color }}
             >
               <h3>{e.title}</h3>
             </div>
 
             <div className="event-card-bottom">
-              <p className="event-name">{e.blurbTitle || e.title}</p>
+              <p className="event-name">
+                {e.blurbTitle || e.title}   {/* FIX: always show name */}
+              </p>
 
               <p className="event-meta">
                 {new Date(e.date).toLocaleDateString("en-US", {

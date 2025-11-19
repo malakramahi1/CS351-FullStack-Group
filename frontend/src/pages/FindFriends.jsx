@@ -18,27 +18,27 @@ export default function FindFriends() {
   return (
     <div className="event-wrap">
 
-<nav className="top-nav">
-
-  <div className="nav-left">
-    <div className="logo">Campus Connect</div>
-    <div className="nav-links">
-      <Link to="/home">Home</Link>
-      <Link to="/events/all">Events</Link>
-    </div>
-  </div>
-
+      {/* Top Navigation */}
+      <nav className="top-nav">
+        <div className="logo">Campus Connect</div>
+        <div className="nav-links">
+          <Link to="/home">Home</Link>
+          <Link to="/events/all">Events</Link>
+        </div>
   <Link to="/profile" className="profile-icon">👤</Link>
-</nav>
+      </nav>
 
+      {/* Back Link */}
       <div className="back-link-wrap">
         <Link to={`/event/${id}`} className="back-link">
           ← Back to Event Details
         </Link>
       </div>
 
-      <h1 className="ff-title">Find Friends: {e.blurbTitle}</h1>
+      {/* Page Title */}
+      <h1 className="ff-title">Find Friends: {e.blurbTitle || e.title}</h1>
 
+      {/* Are you going panel */}
       <section className="ff-panel">
         <h2>Are you going?</h2>
         <p>Click the button to add yourself to the list of attendees</p>
@@ -48,15 +48,14 @@ export default function FindFriends() {
         </button>
       </section>
 
+      {/* Who’s Going panel */}
       <section className="ff-panel">
         <h2>Who’s Going (3)</h2>
 
         <div className="going-grid">
-          <div className="going-card">Om P</div>
-          <div className="going-card">Malak M</div>
-          <div className="going-card">Mandar P</div>
-          <div className="going-card">Jovan L</div>
-
+          <div className="going-card">Om P.</div>
+          <div className="going-card">Dev K.</div>
+          <div className="going-card">Mandar P.</div>
         </div>
       </section>
     </div>
