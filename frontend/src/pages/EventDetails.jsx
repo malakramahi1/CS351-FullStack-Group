@@ -39,7 +39,7 @@ export default function EventDetails() {
 
         {/* Event Full Name (title + year) */}
         <h2 className="event-name">
-          {e.blurbTitle}
+          {e.blurbTitle || e.title}
         </h2>
 
         {/* Date | Time — Location */}

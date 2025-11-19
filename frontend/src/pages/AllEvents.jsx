@@ -7,9 +7,7 @@ export default function AllEvents() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("newest");
-
-  // Only show first 2 events by default
-  const baseEvents = events.slice(0, 2);
+  const baseEvents = events;
 
   const list = useMemo(() => {
     let arr = [...baseEvents];
@@ -34,7 +32,7 @@ export default function AllEvents() {
     });
 
     return arr;
-  }, [search, category, sort]);
+  }, [baseEvents, search, category, sort]);
 
   return (
     <div className="events-wrap">
