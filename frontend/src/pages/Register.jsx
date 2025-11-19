@@ -83,7 +83,6 @@ function submit(e) {
           />
         </label>
 
-        {/* Added Major field */}
         <label>
           <div>Enter Major</div>
           <input
