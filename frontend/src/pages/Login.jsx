@@ -8,7 +8,6 @@ export default function Login() {
 
   function handleSubmit(e){
     e.preventDefault();
-    // Instead of alert, go to home:
     nav("/home"); 
   }
 

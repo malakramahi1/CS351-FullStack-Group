@@ -17,16 +17,13 @@ export default function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
 
-        {/* Main user pages */}
         <Route path="/home" element={<HomePage />} />
         <Route path="/events" element={<HomePage />} />
 
-        {/* Events */}
         <Route path="/events/all" element={<AllEvents />} />
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/event/:id/find-friends" element={<FindFriends />} />
 
-        {/* Profile */}
         <Route path="/profile" element={<ProfilePage />} />   {/* ✅ NEW ROUTE */}
       </Routes>
     </>
