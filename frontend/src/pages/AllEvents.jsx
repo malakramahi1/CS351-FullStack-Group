@@ -7,9 +7,7 @@ export default function AllEvents() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("all");
   const [sort, setSort] = useState("newest");
-
-  // Only show first 2 events by default
-  const baseEvents = events.slice(0, 2);
+  const baseEvents = events;
 
   const list = useMemo(() => {
     let arr = [...baseEvents];
@@ -34,11 +32,10 @@ export default function AllEvents() {
     });
 
     return arr;
-  }, [search, category, sort]);
+  }, [baseEvents, search, category, sort]);
 
   return (
     <div className="events-wrap">
-
       {/* Top Navigation */}
       <nav className="top-nav">
         <div className="logo">Campus Connect</div>
@@ -46,7 +43,9 @@ export default function AllEvents() {
           <Link to="/home">Home</Link>
           <Link to="/events/all">Events</Link>
         </div>
-  <Link to="/profile" className="profile-icon">👤</Link>
+        <Link to="/profile" className="profile-icon">
+          👤
+        </Link>
       </nav>
 
       {/* Title */}
@@ -85,7 +84,6 @@ export default function AllEvents() {
       <div className="events-grid">
         {list.map((e) => (
           <article key={e.id} className="event-card">
-
             <div
               className="event-card-top"
               style={{ backgroundColor: e.color }}
@@ -95,7 +93,7 @@ export default function AllEvents() {
 
             <div className="event-card-bottom">
               <p className="event-name">
-                {e.blurbTitle || e.title}   {/* FIX: always show name */}
+                {e.blurbTitle || e.title}
               </p>
 
               <p className="event-meta">
@@ -112,7 +110,6 @@ export default function AllEvents() {
                 Event Details
               </Link>
             </div>
-
           </article>
         ))}
       </div>
@@ -126,3 +123,4 @@ function toTime(hhmm) {
   d.setHours(h, m, 0, 0);
   return d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 }
+

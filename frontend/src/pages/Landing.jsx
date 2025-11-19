@@ -1,127 +1,207 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Landing() {
   const nav = useNavigate();
 
-  const blueBtn = {
-    backgroundColor: "#2563eb",
-    color: "white",
-    border: "none",
-    padding: "16px 28px",
-    borderRadius: "10px",
+  const page = {
+    fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+    background: "#f3f4f6",
+    minHeight: "100vh",
+  };
+
+  const shell = {
+    maxWidth: 1120,
+    margin: "0 auto",
+    padding: "24px 16px 64px",
+  };
+
+  const navBar = {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 40,
+  };
+
+  const logo = {
+    fontWeight: 700,
+    fontSize: 22,
+  };
+
+  const navButtons = {
+    display: "flex",
+    gap: 12,
+  };
+
+  const outlineBtn = {
+    padding: "8px 20px",
+    borderRadius: 999,
+    border: "1px solid #2563eb",
+    background: "#fff",
+    color: "#2563eb",
+    fontWeight: 500,
     cursor: "pointer",
-    fontSize: "1.125rem",
+    textDecoration: "none",
+  };
+
+  const solidBtn = {
+    padding: "8px 20px",
+    borderRadius: 999,
+    border: "1px solid #2563eb",
+    background: "#2563eb",
+    color: "#fff",
+    fontWeight: 500,
+    cursor: "pointer",
+    textDecoration: "none",
+  };
+
+  const hero = {
+    display: "grid",
+    gridTemplateColumns: "minmax(0, 1.2fr) minmax(0, 1fr)",
+    gap: 40,
+    alignItems: "center",
+    background: "#f9fafb",
+    borderRadius: 24,
+    padding: 32,
+    boxShadow: "0 18px 45px rgba(15, 23, 42, 0.08)",
+    marginBottom: 40,
+  };
+
+  const heroTitle = {
+    fontSize: 40,
+    fontWeight: 800,
+    lineHeight: 1.1,
+    marginBottom: 16,
+  };
+
+  const heroText = {
+    fontSize: 16,
+    color: "#4b5563",
+    marginBottom: 24,
+    maxWidth: 420,
+  };
+
+  const heroImageBox = {
+    borderRadius: 24,
+    overflow: "hidden",
+    background: "#111827",
+  };
+
+  const heroImg = {
+    width: "100%",
+    display: "block",
+    objectFit: "cover",
+  };
+
+  const sectionTitle = {
+    fontSize: 22,
+    fontWeight: 700,
+    marginBottom: 16,
+  };
+
+  const cardRow = {
+    marginTop: 16,
+    background: "#f9fafb",
+    borderRadius: 24,
+    padding: 24,
+    display: "flex",
+    alignItems: "center",
+    gap: 20,
+    boxShadow: "0 12px 30px rgba(15, 23, 42, 0.06)",
+  };
+
+  const calendarIcon = {
+    width: 40,
+    height: 40,
+    borderRadius: 12,
+    border: "2px solid #111827",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: 22,
+  };
+
+  const cardTextTitle = {
     fontWeight: 600,
+    marginBottom: 4,
+  };
+
+  const cardTextBody = {
+    color: "#4b5563",
+    fontSize: 14,
   };
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        minHeight: "100vh",
-        fontFamily:
-          "Inter, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
-      }}
-    >
-      {/* Top bar */}
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "28px 60px",
-          borderBottom: "1px solid #e5e7eb",
-        }}
-      >
-        <h2 style={{ fontWeight: 800, fontSize: "1.75rem" }}>
-          Campus Connect
-        </h2>
-        <div style={{ display: "flex", gap: "16px" }}>
-          <button
-            style={{
-              backgroundColor: "white",
-              border: "2px solid #2563eb",
-              color: "#2563eb",
-              borderRadius: "10px",
-              padding: "10px 18px",
-              cursor: "pointer",
-              fontWeight: 600,
-              fontSize: "1rem",
-            }}
-            onClick={() => nav("/login")}
-          >
-            Log In
-          </button>
-          <button
-            style={{
-              backgroundColor: "#2563eb",
-              border: "2px solid #2563eb",
-              color: "white",
-              borderRadius: "10px",
-              padding: "10px 18px",
-              cursor: "pointer",
-              fontWeight: 600,
-              fontSize: "1rem",
-            }}
-            onClick={() => nav("/register")}
-          >
-            Create Account
-          </button>
-        </div>
-      </header>
+    <div style={page}>
+      <div style={shell}>
+        {/* Top nav */}
+        <header style={navBar}>
+          <div style={logo}>Campus Connect</div>
+          <div style={navButtons}>
+            <Link to="/login" style={outlineBtn}>
+              Log In
+            </Link>
+            <Link to="/register" style={solidBtn}>
+              Create Account
+            </Link>
+          </div>
+        </header>
 
-      {/* Hero section */}
-      <main
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "60px",
-          padding: "80px 60px",
-        }}
-      >
-        <div style={{ flex: "1 1 460px", maxWidth: "520px" }}>
-          <h1
-            style={{
-              fontSize: "3rem",
-              fontWeight: 800,
-              marginBottom: "20px",
-              lineHeight: 1.2,
-            }}
-          >
-            Find your UIC Crew.
-            <br />
-            Never Miss Out.
-          </h1>
-          <p
-            style={{
-              fontSize: "1.125rem",
-              color: "#374151",
-              marginBottom: "32px",
-            }}
-          >
-            Connect with classmates, make lasting memories, and explore a variety
-            of events happening across campus.
-          </p>
+        {/* Hero */}
+        <section style={hero}>
+          <div>
+            <h1 style={heroTitle}>
+              Find your UIC Crew.
+              <br />
+              Never Miss Out.
+            </h1>
+            <p style={heroText}>
+              Connect with classmates, make lasting memories, and discover
+              different events happening across campus.
+            </p>
+            <button
+              style={{
+                ...solidBtn,
+                padding: "12px 24px",
+                borderRadius: 999,
+              }}
+              type="button"
+              onClick={() => nav("/events/all")}
+            >
+              Explore Events
+            </button>
 
-          <button style={blueBtn} onClick={() => nav("/events/all")}>
-            Explore Events
-          </button>
-        </div>
+            <p style={{ marginTop: 32, fontWeight: 600 }}>
+              Discover What&apos;s Happening
+            </p>
+          </div>
 
-        <img
-          src="https://today.uic.edu/wp-content/uploads/2024/10/dji_20241023123615_0139_d_mh_websize.jpg"
-          alt="UIC Campus"
-          style={{
-            width: "540px",
-            height: "auto",
-            borderRadius: "20px",
-            objectFit: "cover",
-            boxShadow: "0 6px 18px rgba(0,0,0,0.12)",
-          }}
-        />
-      </main>
+          <div style={heroImageBox}>
+            {/* You can swap this src with the exact campus image used before */}
+            <img
+              style={heroImg}
+	       src="https://today.uic.edu/wp-content/uploads/2024/10/dji_20241023123615_0139_d_mh_websize.jpg"
+              alt="Campus aerial view"
+            />
+          </div>
+        </section>
+
+        {/* Browse Local Events card */}
+        <section>
+          <h2 style={sectionTitle}>Browse Local Events</h2>
+          <div style={cardRow}>
+            <div style={calendarIcon}>📅</div>
+            <div>
+              <div style={cardTextTitle}>Browse Local Events</div>
+              <p style={cardTextBody}>
+                Explore all of the upcoming events on the campus without an
+                account. Click anywhere on this card or the button above to
+                view the full events listing.
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
+

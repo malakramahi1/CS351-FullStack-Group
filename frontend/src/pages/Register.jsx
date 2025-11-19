@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { registerUser } from "../api";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -13,10 +14,24 @@ export default function Register() {
     setForm((s) => ({ ...s, [k]: v }));
   }
 
-  function submit(e) {
-    e.preventDefault();
-    alert(`(mock) created account for ${form.name} (${form.major})`);
+function submit(e) {
+  e.preventDefault();
+
+  // Basic password check
+  if (form.password !== form.confirm) {
+    alert("Passwords do not match");
+    return;
   }
+
+  registerUser(form).then((res) => {
+    if (!res.ok) {
+      alert("Registration failed:\n" + JSON.stringify(res.data.errors, null, 2));
+      return;
+    }
+
+    alert("Account created for " + res.data.data.user.username);
+  });
+}
 
   const input = {
     width: "100%",
