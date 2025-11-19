@@ -1,15 +1,33 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../api";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
   const nav = useNavigate();
 
-  function handleSubmit(e){
-    e.preventDefault();
-    nav("/home"); 
+function handleSubmit(e) {
+  e.preventDefault();
+
+  if (!email || !pw) {
+    alert("Please enter both email and password");
+    return;
   }
+
+  loginUser(email, pw).then((res) => {
+    if (!res.ok) {
+      alert("Login failed:\n" + JSON.stringify(res.data.errors, null, 2));
+      return;
+    }
+
+    // success: backend returned a valid user
+    nav("/home");
+  }).catch((err) => {
+    console.error(err);
+    alert("Unexpected error logging in");
+  });
+}
 
   const input = { width:"100%", padding:"10px 12px", border:"1px solid #ddd", borderRadius:8 };
   const btn = { padding:"10px 14px", border:"1px solid #ddd", borderRadius:8, cursor:"pointer", background:"#fff" };

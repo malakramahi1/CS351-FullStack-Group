@@ -129,3 +129,4 @@ export const events = [
 
 export const getEventById = (id) =>
   events.find((e) => String(e.id) === String(id));
+
