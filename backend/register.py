@@ -9,6 +9,7 @@ import re
 import secrets
 import uuid
 import datetime
+import hashlib
 from dataclasses import dataclass, asdict
 from typing import List, Any, Optional
 # from __future__ import annotations
@@ -18,33 +19,33 @@ from flask import Blueprint, Flask, jsonify, request
 from werkzeug.security import generate_password_hash
 
 
-
-class _Node: # node helper class.
+class _Node:  # node helper class.
     __slots__ = ("key", "val", "next")  # list of forward pointers
     def __init__(self, height: int, k: str, v: Any):
         self.key, self.val = k, v # key value 
-        self.next: List[Optional["_Node"]] = [None] * height # forward pointer holds
+        self.next: List[Optional["_Node"]] = [None] * height  # forward pointer holds
 
-class SkipList: # skiplist class.
-    def __init__(self, prob: float = 0.25, max_height: int = 20): #
-        self.p = prob # holds the probability 
-        self.max_h = max_height # max number of levels for the list 
-        self.h = 1 # top level 
-        self.head = _Node(self.max_h, "", None) # head node
+
+class SkipList:  # skiplist class.
+    def __init__(self, prob: float = 0.25, max_height: int = 20):
+        self.p = prob  # holds the probability
+        self.max_h = max_height  # max number of levels for the list
+        self.h = 1  # top level
+        self.head = _Node(self.max_h, "", None)  # head node
         self.n = 0
 
     def __len__(self) -> int:  # returns length of node 
         return self.n
 
-    def _randomize(self) -> int: # randomize function for skip list 
-        bits = secrets.randbits(self.max_h) # random bits call
-        levels, thr = 1, int(self.p * (1 << 16)) # holds level and threshold 
+    def _randomize(self) -> int:  # randomize function for skip list
+        bits = secrets.randbits(self.max_h)  # random bits call
+        levels, thr = 1, int(self.p * (1 << 16))  # holds level and threshold
         while (levels < self.max_h) and (secrets.randbits(16) < thr) and (bits & 1):
             levels += 1 
             bits >>= 1
         return levels
 
-    def _predecessors(self, key: str) -> List[_Node]: # holds the predecessors for each node 
+    def _predecessors(self, key: str) -> List[_Node]:  # holds the predecessors for each node
         pr = [None] * self.max_h 
         x = self.head
         for levels in range(self.h - 1, -1, -1):
@@ -53,10 +54,10 @@ class SkipList: # skiplist class.
             pr[levels] = x
         return pr
 
-    def getVal(self, key: str) -> Optional[Any]: # find value for the key 
-        x = self.head # holds the head of the node 
-        for levels in range(self.h - 1, -1, -1): # for each level, 
-            while x.next[levels] and x.next[levels].key < key: # move to the next level if found 
+    def getVal(self, key: str) -> Optional[Any]:  # find value for the key
+        x = self.head  # holds the head of the node
+        for levels in range(self.h - 1, -1, -1):  # for each level,
+            while x.next[levels] and x.next[levels].key < key:  # move to the next level if found
                 x = x.next[levels] 
         x = x.next[0]
         if x and (x.key == key):
@@ -64,23 +65,54 @@ class SkipList: # skiplist class.
         else:
             return None
 
-    def insert(self, key: str, v: Any) -> bool: # insert a key/value
-        pr = self._predecessors(key) # hold predecessors 
-        curr = pr[0].next[0] # current node 
-        if curr and curr.key == key: # if there is a duplicate, return False
+    def insert(self, key: str, v: Any) -> bool:  # insert a key/value
+        pr = self._predecessors(key)  # hold predecessors
+        curr = pr[0].next[0]  # current node
+        if curr and curr.key == key:  # if there is a duplicate, return False
             return False
 
-        height = self._randomize() # holds the height 
-        if height > self.h: # if the randomized height is greater than node height 
+        height = self._randomize()  # holds the height
+        if height > self.h:  # if the randomized height is greater than node height
             for i in range(self.h, height):
-                pr[i] = self.head # add node to predecessors 
+                pr[i] = self.head  # add node to predecessors
             self.h = height
 
-        node = _Node(height, key, v) # make a new mode 
-        for i in range(height): # for every index in the range of heights 
-            node.next[i] = pr[i].next[i] # add next nodes to predecessors 
-            pr[i].next[i] = node # move to next node 
+        node = _Node(height, key, v)  # make a new node
+        for i in range(height):  # for every index in the range of heights
+            node.next[i] = pr[i].next[i]  # add next nodes to predecessors
+            pr[i].next[i] = node  # move to next node
         self.n += 1
+        return True
+
+
+class BloomFilter:
+    """
+    Simple Bloom Filter used as an advanced hashing data structure.
+    It is layered on top of the existing skip-list / dict logic and
+    never changes application behavior: it is only used as a
+    fast-negative check before consulting the authoritative index.
+    """
+
+    def __init__(self, size: int = 8192, hashes: int = 3):
+        self.size = max(1, size)
+        self.hashes = max(1, hashes)
+        self._bits = 0
+
+    def _hashes(self, key: str):
+        data = key.encode("utf-8")
+        h1 = int(hashlib.sha256(data).hexdigest(), 16)
+        h2 = int(hashlib.blake2b(data).hexdigest(), 16)
+        for i in range(self.hashes):
+            yield (h1 + i * h2) % self.size
+
+    def add(self, key: str) -> None:
+        for idx in self._hashes(key):
+            self._bits |= 1 << idx
+
+    def __contains__(self, key: str) -> bool:
+        for idx in self._hashes(key):
+            if not (self._bits >> idx) & 1:
+                return False
         return True
 
 
@@ -99,11 +131,16 @@ userBounds = re.compile(r"^[A-Za-z0-9_ ]{3,16}$")
 emailBounds    = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
-class AccountIndex: # holds the indexing for each account 
+class AccountIndex:  # holds the indexing for each account
     def __init__(self, path: Optional[str] = "users.json"):
         self._id: dict[str, Account] = {} # main dictionary of accounts 
-        self.emailInd = SkipList() # email indexes 
-        self.nameInd  = SkipList() # username 
+        self.emailInd = SkipList() # email indexes
+        self.nameInd  = SkipList() # username
+        # Bloom filters for fast negative lookups on email/username.
+        # They never replace the skip-list checks, only short-circuit
+        # obviously-missing keys to avoid changing behavior.
+        self.emailBloom = BloomFilter()
+        self.nameBloom = BloomFilter()
         self._path = path
         if path and os.path.exists(path): # if the path exists, then load in
             self._load()
@@ -124,18 +161,31 @@ class AccountIndex: # holds the indexing for each account
                 rec.setdefault("major", "")
                 acct = Account(**rec) # new account node 
                 self._id[uid] = acct # hold the UID
-                self.emailInd.insert(acct.email.lower(), uid) # insert new email to account node 
-                self.nameInd.insert(acct.username.lower(), uid) # insert name to account node 
+                email_key = acct.email.lower()
+                user_key = acct.username.lower()
+                self.emailInd.insert(email_key, uid) # insert new email to account node
+                self.nameInd.insert(user_key, uid) # insert name to account node
+                if email_key:
+                    self.emailBloom.add(email_key)
+                if user_key:
+                    self.nameBloom.add(user_key)
         except Exception: # if load does not work, or has errors, clear up the list
             self._id.clear()
             self.emailInd = SkipList()
             self.nameInd = SkipList()
 
-    def emailCheck(self, email: str) -> bool: # checks if the email is already taken
-        return self.emailInd.getVal(email.lower()) is not None
+    def emailCheck(self, email: str) -> bool:  # checks if the email is already taken
+        key = email.lower()
+        # Bloom filter is only used for quick negative checks.
+        if key and key not in self.emailBloom:
+            return False
+        return self.emailInd.getVal(key) is not None
 
-    def userCheck(self, username: str) -> bool: # checks if the username is already taken
-        return self.nameInd.getVal(username.lower()) is not None
+    def userCheck(self, username: str) -> bool:  # checks if the username is already taken
+        key = username.lower()
+        if key and key not in self.nameBloom:
+            return False
+        return self.nameInd.getVal(key) is not None
 
     def create(self, username: str, email: str, password: str, major: str = "") -> Account: # create an account 
         user = username.strip()
@@ -156,9 +206,13 @@ class AccountIndex: # holds the indexing for each account
             creation=currTime,
             major=study,
         )
-        self._id[uid] = acc 
-        assert self.nameInd.insert(user.lower(), uid)
-        assert self.emailInd.insert(mail.lower(), uid)
+        self._id[uid] = acc
+        name_key = user.lower()
+        email_key = mail.lower()
+        assert self.nameInd.insert(name_key, uid)
+        assert self.emailInd.insert(email_key, uid)
+        self.nameBloom.add(name_key)
+        self.emailBloom.add(email_key)
         self._save()
         return acc
 
