@@ -89,3 +89,20 @@
 .save-btn:hover {
   background: #1e4fd1;
 }
+
+.logout-btn {
+  width: 100%;
+  padding: 14px 0;
+  margin-top: 14px;
+  background: #dc2626; /* red */
+  color: white;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.logout-btn:hover {
+  background: #b91c1c; /* darker red */
+}
