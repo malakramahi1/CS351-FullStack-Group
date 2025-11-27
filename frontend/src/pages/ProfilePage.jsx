@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { syncAttendeeDisplayName } from "../api";
 import "./profile.css";
 
 export default function ProfilePage() {
-  
+
+  const navigate = useNavigate();
+
   const [user, setUser] = useState(() => {
     const saved = localStorage.getItem("userProfile");
     return saved
@@ -40,7 +42,7 @@ export default function ProfilePage() {
   }
 
   async function saveChanges() {
-    localStorage.setItem("userProfile", JSON.stringify(user));  
+    localStorage.setItem("userProfile", JSON.stringify(user));
     setEditing(false);
 
     if (user.id) {
@@ -48,6 +50,7 @@ export default function ProfilePage() {
         .filter(Boolean)
         .join(" ")
         .trim() || user.username || user.email || user.id;
+
       try {
         await syncAttendeeDisplayName(user.id, displayName);
       } catch (err) {
@@ -58,15 +61,19 @@ export default function ProfilePage() {
     alert("Profile updated!");
   }
 
+  function logout() {
+    localStorage.removeItem("userProfile");
+    navigate("/"); // back to landing page
+  }
+
   return (
     <div className="profile-wrap">
 
+      {/* TOP NAV — Home REMOVED, Events moved to first */}
       <nav className="top-nav">
-
         <div className="nav-left">
           <div className="logo">Campus Connect</div>
           <div className="nav-links">
-            <Link to="/home">Home</Link>
             <Link to="/events/all">Events</Link>
           </div>
         </div>
@@ -124,7 +131,14 @@ export default function ProfilePage() {
             Save Changes
           </button>
         )}
+
+        {/* LOGOUT BUTTON */}
+        <button className="logout-btn" onClick={logout}>
+          Log Out
+        </button>
+
       </div>
+
     </div>
   );
 }

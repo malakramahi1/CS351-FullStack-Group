@@ -21,12 +21,14 @@ export default function EventDetails() {
 
       {/* Top Navigation */}
       <nav className="top-nav">
-        <div className="logo">Campus Connect</div>
-        <div className="nav-links">
-          <Link to="/home">Home</Link>
-          <Link to="/events/all">Events</Link>
+        <div className="nav-left">
+          <div className="logo">Campus Connect</div>
+          <div className="nav-links">
+            <Link to="/events/all">Events</Link>
+          </div>
         </div>
-  <Link to="/profile" className="profile-icon">👤</Link>
+
+        <Link to="/profile" className="profile-icon">👤</Link>
       </nav>
 
       {/* Hero Title Banner */}
