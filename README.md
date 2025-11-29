@@ -1,4 +1,3 @@
-```markdown
 # Campus Connect
 
 Campus Connect is a small web application designed for UIC students.
