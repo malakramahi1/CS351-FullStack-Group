@@ -1,124 +1,137 @@
-# Logistics  
+# Campus Connect
 
-**Q1:** At what time in the week would your group be available to meet online?  
-**Example:**  
-*We are available to meet online on weekends from 12pm-8pm (12-2pm Saturday + Sunday), as well as from 4pm-6pm on Fridays.*  
-*Our weekly meeting will be Thursday 11am-12pm.*  
+Campus Connect is a small web application designed for UIC students.  
+Its purpose is to help students find campus events, see who is attending, and join events easily.  
+This project was created for CS 351: Advanced Data Structures (Full Stack Group Project).
 
----
-
-# Timeline: Weekly Meeting Goals  
-
-**Q2:** What is your goals that your group want to achieve in each weekly meeting?  
-**Example:**  
-*Prior to 3/13: Weekly Meeting we will plan out some preliminary info/idea for the project itself ahead of the scheduled meeting like which data source/API and data structures we will use in our backend. We will browse [the given list of public APIs for inspiration](https://github.com/public-apis/public-apis).*  
-
-*During week of 3/25: Work on the project rough draft itself to make a functioning project with data input, data structure usage, and processing into output on the frontend.*  
-
-*Prior to 4/17: Meet together weekly to target project weakpoints/bugs and possibly visit office hours to get guidance if the progress feels weak.*  
+Group members: Om P, Mandar P, Malak R, Jovan L  
+Track: Track 2 – Technology for Public Goods
 
 ---
 
-# Communication  
+## 1. Project Overview
 
-**Q3a:** How can your group communicate when doing the Full Stack Group Project?  
-**Q3b:** What are the usernames of each group member on that platform?  
-**Q3c:** What is your group’s expected response time to messages?  
+Students often miss events happening around campus because the information is scattered.  
+Campus Connect solves this by placing all upcoming events in a single location.  
+Users can create an account, log in, browse events, filter and search for events, mark attendance,  
+and view who else is planning to attend.
 
-**Example:**  
-*We will use Discord for communication*  
-
-*Usernames:*  
-*Justin - ghostmechanic*  
-*Claudia - ninth.py*  
-*Mauricio - itsperi*  
-*Our expected response time will be within 12 hours.*  
+The goal is to make campus involvement simpler and more accessible for UIC students.
 
 ---
 
-# Norms  
+## 2. Tech Stack
 
-**Q4a:** How will your group handle situations when there is conflict in your group?  
-**Q4b:** How will your group handle situations when a member is not contributing enough?  
+Frontend: React  
+Backend: Flask (Python)  
+Storage: JSON files  
+Communication between frontend and backend uses the Fetch API (GET and POST requests).
 
-**Example:**  
-*If there is a disagreement on direction, we will resolve it with a unanimous vote.*  
-*If team members do not pull their weight, the team will politely remind them of their duties.*  
-*If they continue to not pull their weight, then they will get another warning and a chance to start being more productive.*  
+General flow of data:
 
----
-
-# Roles  
-
-**Q5:** How will your group divide your role in the Group Project?  
-
-**Example:**  
-*Mauricio - Backend, Justin - Project Lead, Claudia - Frontend.*  
-
----
-
-# Tech Stacks
-
-**Q6:** Which tech stacks will your group use? (Django + React or Flask + React)
-
----
-# Full Stack Group Project Track  
----
-
-# Track 1: Tackling Generative AI Consequences
-**Problem 1:** 
-
-**Solution 1:** 
+```text
+React (frontend)
+   ↓ Fetch (GET / POST)
+Flask routes in app.py (backend)
+   ↓
+JSON files for users and events
+   ↓
+Response returned back to React
 
 ---
 
-# Track 2: Technology for Public Goods 
 
-**Problem 2:**
+## 3. Advanced Data Structures
 
-**Solution 2:** 
+The project uses two advanced data structures, one from the first half of the course
+and one from the second half.
 
-**Problem 3:** 
+Skip List
+Used for:
+    Fast, ordered lookup of users during login or account creation.
+Reason for choosing it:
+    Skip lists provide expected O(log n) search time.
+    They are more efficient than scanning a normal linked list.
+    They are easier to implement manually compared to a self-balancing tree.
+    Works well when many user lookups occur repeatedly.
 
-**Solution 3:**  
+The skip list stores users in sorted order by email or username, which speeds up login operations.
 
-# Track 3: Creative Coding and Cultural Expression
+Bloom Filter
+Used for:
+    Fast membership tests to check whether a user might exist before doing a skip list search.
+Reason for choosing it:
+    O(1) lookup time.
+    Uses very little memory.
+    Helps skip unnecessary skip list searches by ruling out “definitely not present” emails.
+    Improves login performance as the number of users grows.
+    A Bloom filter may give false positives but never false negatives.
+If the filter says a user is not present, the backend can immediately stop.
 
-**Idea - Story - Inspiration 4:**
+---
 
-**Implementation 4:**
+## 4. Main Features
 
-**Idea - Story - Inspiration 5:**
+The main features currently implemented include:
+    Search, filter, and sort for events.
+    Browsing all upcoming campus events.
+    Creating an account with major and a hashed password.
+    Logging in with password verification.
+    Joining events using an “I’m Going” style button.
+    Viewing the list of attendees for each event.
 
-**Implementation 5:**
+These features are demonstrated in the final slides and will appear in the demo video.
+
+---
+## 5. How to Run the Project
+
+The following steps allow the project to run on any computer
+with Python and Node.js installed.
+
+Clone the repository;
+git clone https://github.com/malakramahi1/CS351-FullStack-Group.git
+cd CS351-FullStack-Group
+
+Running the Backend:
+cd backend
+pip install -r requirements.txt
+python app.py
+
+Running the Frontend:
+cd frontend
+npm install
+npm start
+
+---
+
+## 6. Repository Structure
+CS351-FullStack-Group/
+│
+├── backend/
+│   ├── app.py
+│   ├── events.py
+│   ├── friends.py
+│   ├── login.py
+│   ├── register.py
+│   ├── users.json
+│   ├── events_data.json
+│   ├── friends_data.json
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   └── package.json
+│
+├── allMilestones/
+├── demo_video/
+├── figma_wireframe/
+└── README.md
+
+---
+
+## 7. Demo Video 
+Demo Video Link: 
+---
 
 
-# Idea Finalization
-
-**From 5 project ideas you have above, please choose one of the project that you are going with for the rest of the semester. Explain why you are going with that project**
-
-# Extra Credit (Only do this if you are done with Idea Finalization)
-
-## Database Design
-
-**Q1: What database are you using for your project (SQLite, PostgreSQL, noSQL, MongoDB,...), and why do you choose it?**
-
-**Q2: How will database be helpful to your project? How will you design your database to support your application features?**
-
-## Third-Party API Integration
-
-**Q3: Which third-party API(s) will you integrate into your project? What data will you pull from the API(s), and how will you use it in your application?**
-
-**Q4: Does your API key has limitations such as rate limits or downtime? How are you going to deal with that?**
-
-## Authentication and Security
-
-**Q5: What authentication method will you use (e.g., username/password, OAuth, JWT)?**
-
-**Q6: How will you store and protect sensitive user data (e.g., passwords, tokens)?**
-
-## Deployment
-
-**Q7: Where will you deploy your project (e.g., Heroku, AWS, Render)? How will you manage environment variables and secrets during deployment?**
-
-**Q8: How will you ensure your deployment is reliable and easy to update?**
