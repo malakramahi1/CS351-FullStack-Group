@@ -161,7 +161,7 @@ CS351-FullStack-Group/
 
 ## 7. Demo Video
 
-Demo Video Link: 
+Demo Video Link: https://youtu.be/SjVgDqgITO0 
 
 ---
 ```
