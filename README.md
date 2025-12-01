@@ -96,9 +96,18 @@ The main features currently implemented include:
 
 ## 5. How to Run the Project
 
-These steps allow the project to run on any computer with Python and Node.js installed.
+These steps allow the project to run on any computer with Python (version 3.11+) and Node.js installed.
 
-Clone the repository:
+### Checking Python Version:
+
+To check if the correct Python version is installed, open a terminal and type
+
+```text
+python --version
+```
+If a version lower than 3.11 is returned, update to the latest Python version using the official website (https://www.python.org/).
+
+### Clone the repository:
 
 ```text
 git clone https://github.com/malakramahi1/CS351-FullStack-Group.git
